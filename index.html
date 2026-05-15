@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Malleswari - Software Engineer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: white;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72, #95a8c9e1);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff9800;
+        }
+
+        section {
+            padding: 60px 10%;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #1e3c72;
+            text-align: center;
+        }
+
+        .about {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .about img {
+            width: 250px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: rgb(249, 250, 250);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .timeline {
+            border-left: 4px solid #1e3c72;
+            padding-left: 25px;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: #ff9800;
+            border-radius: 50%;
+        }
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact button {
+            padding: 12px 25px;
+            border: none;
+            background: #1e3c72;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .contact button:hover {
+            background: #ff9800;
+        }
+
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .project-category {
+            margin-bottom: 70px;
+        }
+
+        .category-title {
+            font-size: 28px;
+            color: #1e3c72;
+            margin-bottom: 30px;
+            border-left: 5px solid #ff9800;
+            padding-left: 15px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-stack span {
+            background: #eef3ff;
+            color: #1e3c72;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .highlight-card {
+            border: 2px solid #ff9800;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-card::before {
+            content: "Hackathon Achievement";
+            position: absolute;
+            top: 12px;
+            right: -35px;
+            background: #ff9800;
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* SKILLS SECTION */
+
+        .skills-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding: 30px 0;
+            cursor: grab;
+
+            /* Hide Scrollbar */
+            scrollbar-width: none;
+        }
+
+        .skills-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .skills-track {
+            display: flex;
+            gap: 25px;
+            width: max-content;
+            animation: autoScroll 35s linear infinite;
+        }
+
+        .skills-container:hover .skills-track {
+            animation-play-state: paused;
+        }
+
+        .skill-item {
+            min-width: 100px;
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-8px) scale(1.05);
+        }
+
+        .skill-item img {
+            width: 60px;
+            height: 40px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .skill-item span {
+            display: block;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        @keyframes infiniteScroll {
+
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @media(max-width: 768px) {
+            .about {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>Naga Malleswari Segireddy</h1>
+        <p>Software Engineer | 2.9 Years Experience | Full Stack Developer</p>
+    </header>
+
+    <!-- NAVBAR -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+
+        <div class="about">
+            <p>
+                Passionate Software Engineer with 2.7 years of experience in full-stack development, backend
+                engineering, and workflow automation. Skilled in building scalable and high-performance applications
+                using React.js, Node.js, Python, and FastAPI, along with automation platforms like n8n.
+            </p>
+            <p>
+                Experienced in designing cloud-based solutions, implementing CI/CD pipelines, improving operational
+                efficiency, and enhancing application security. Strong background in automation testing, real-time
+                monitoring systems, and AWS environment management.
+            </p>
+            <p>
+                Adept at collaborating with cross-functional teams to deliver reliable software solutions that optimize
+                business workflows and improve system performance.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+
+        <div class="skills-container">
+
+            <div class="skills-track">
+
+                <!-- Languages -->
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg">
+                    <span>Python</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
+                    <span>JavaScript</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg">
+                    <span>TypeScript</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
+                    <span>SQL</span>
+                </div>
+
+                <!-- Frontend -->
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg">
+                    <span>React.js</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg">
+                    <span>Redux</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
+                    <span>HTML5</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
+                    <span>CSS3</span>
+                </div>
+
+                <!-- Backend -->
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg">
+                    <span>Node.js</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg">
+                    <span>Flask</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg">
+                    <span>FastAPI</span>
+                </div>
+
+                <!-- Tools -->
+                <div class="skill-item">
+                    <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg">
+                    <span>Postman</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://n8n.io/favicon.ico">
+                    <span>n8n</span>
+                </div>
+
+                <!-- DevOps -->
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg">
+                    <span>Docker</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg">
+                    <span>Jenkins</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg">
+                    <span>Linux</span>
+                </div>
+
+                <div class="skill-item">
+                    <img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg">
+                    <span>AWS</span>
+                </div>
+
+                <!-- Testing -->
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cucumber/cucumber-plain.svg">
+                    <span>Cucumber</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://playwright.dev/img/playwright-logo.svg">
+                    <span>Playwright</span>
+                </div>
+
+                <div class="skill-item">
+                    <img src="https://appium.io/docs/en/latest/assets/images/appium-logo-horiz.png">
+                    <span>Appium</span>
+                </div>
+
+                <!-- DUPLICATE FOR SMOOTH LOOP -->
+                <!-- Copy same items again -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+
+        <h2 class="section-title">Projects & Achievements</h2>
+
+        <!-- PERSONAL PROJECTS -->
+        <!-- <div class="project-category">
+            <h3 class="category-title">Personal & Academic Projects</h3>
+
+            <div class="projects"> -->
+
+                <!-- PET PARADISE -->
+                <!-- <div class="project-card">
+                    <div class="project-content">
+
+                        <h3>PetParadise - Pet Marketplace Platform</h3>
+
+                        <p>
+                            Developed a full-stack e-commerce platform for buying and selling pets
+                            based on breed, type, vaccination status, and other filters.
+                        </p>
+
+                        <br>
+
+                        <p>
+                            Implemented responsive UI, authentication, product listings,
+                            search & filtering, and backend APIs.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>React.js</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                            <span>REST APIs</span>
+                        </div>
+
+                    </div>
+                </div> -->
+
+                <!-- HEART ATTACK PREDICTION -->
+                <!-- <div class="project-card">
+                    <div class="project-content">
+
+                        <h3>Heart Attack Prediction System</h3>
+
+                        <p>
+                            Built a machine learning application to predict heart attack risk
+                            based on medical input parameters and health metrics.
+                        </p>
+
+                        <br>
+
+                        <p>
+                            Trained predictive models and created a simple user interface
+                            for providing real-time predictions.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>Python</span>
+                            <span>Machine Learning</span>
+                            <span>Flask</span>
+                            <span>Pandas</span>
+                        </div>
+
+                    </div>
+                </div> -->
+
+            <!-- </div>
+        </div> -->
+
+
+        <!-- WORK PROJECTS -->
+        <div class="project-category">
+
+            <h3 class="category-title">Professional / Work Projects</h3>
+
+            <div class="projects">
+
+                <!-- OPS DASHBOARD -->
+                <div class="project-card">
+                    <div class="project-content">
+
+                        <h3>Shipping Logistics Ops Dashboard</h3>
+
+                        <p>
+                            Contributed to logistics monitoring platforms by developing E2E features, 
+                            optimizing user experience, and resolving production-level issues.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>React.js</span>
+                            <span>Node.js</span>
+                            <span>TypeScript</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ExIm -->
+                <div class="project-card">
+                    <div class="project-content">
+
+                        <h3>ExIm</h3>
+
+                        <p>
+                            Built scalable full-stack features for the Exim logistics platform, 
+                            covering export/import management, real-time container tracking, 
+                            inquiry handling, bidding, and tender processing systems.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>React.js</span>
+                            <span>Node.js</span>
+                            <span>TypeScript</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- PLAYWRIGHT -->
+                <div class="project-card">
+                    <div class="project-content">
+
+                        <h3>Automation Testing</h3>
+
+                        <p>
+                            Developed scalable automation test cases using Playwright,
+                            Cucumber, and Appium for web, API, and mobile applications.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>Playwright</span>
+                            <span>Cucumber</span>
+                            <span>Appium</span>
+                            <span>Jenkins</span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- CI/CD -->
+                <div class="project-card">
+                    <div class="project-content">
+
+                        <h3>CI/CD Pipeline</h3>
+
+                        <p>
+                            Implemented Jenkins-based CI/CD pipelines for automated
+                            deployment, and release management workflows.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>Jenkins</span>
+                            <span>Docker</span>
+                            <span>AWS</span>
+                            <span>Linux</span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- N8N -->
+                <div class="project-card">
+                    <div class="project-content">
+
+                        <h3>Workflow Integrations Using n8n</h3>
+
+                        <p>
+                            Integrated multiple third-party APIs and automated workflows
+                            using n8n, reducing manual operational efforts significantly.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>n8n</span>
+                            <span>APIs</span>
+                            <span>Automation</span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- AWS -->
+                <div class="project-card">
+                    <div class="project-content">
+
+                        <h3>AWS Sandbox & Infrastructure Support</h3>
+
+                        <p>
+                            Worked on AWS ECS for sandbox environments to troubleshoot deployment issues,
+                            maintain containerized services, and ensure stable and seamless sandbox release operations.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>AWS</span>
+                            <span>Docker</span>
+                            <span>Linux</span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- HACKATHON -->
+                <div class="project-card highlight-card">
+                    <div class="project-content">
+
+                        <h3>🏆 AI-Powered War Room Alert Analyzer</h3>
+
+                        <p>
+                            Secured 2nd place in a company-wide hackathon at Shipsy by
+                            building a real-time AI-powered alert analyzer integrated with
+                            Slack and n8n workflows.
+                        </p>
+
+                        <br>
+
+                        <p>
+                            Enabled faster incident analysis and operational decision-making
+                            through automated alert intelligence.
+                        </p>
+
+                        <br>
+
+                        <div class="tech-stack">
+                            <span>n8n</span>
+                            <span>Slack API</span>
+                            <span>New Relic</span>
+                            <span>AWS</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+        <h2 class="section-title">Professional Experience</h2>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <h3>Software Engineer</h3>
+                <p>
+                    <strong>Shipsy, Bangalore</strong> |
+                    May 2024 – Present
+                </p>
+
+                <ul>
+                    <li>
+                        Architected and delivered scalable full-stack features for logistics platforms using React.js
+                        and Node.js.
+                    </li>
+
+                    <li>
+                        Built and deployed 20+ workflow automations using n8n, significantly reducing manual operational
+                        efforts.
+                    </li>
+
+                    <li>
+                        Designed and implemented a real-time War Room Alert Analyzer integrated with Slack for faster
+                        incident analysis and decision-making.
+                    </li>
+
+                    <li>
+                        Managed AWS sandbox environments and supported deployment and release activities.
+                    </li>
+
+                    <li>
+                        Identified and fixed security vulnerabilities across multiple repositories, improving
+                        application reliability and compliance.
+                    </li>
+
+                    <li>
+                        Developed internal productivity tools using React.js, Flask, Python, and FastAPI.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Software Engineer Intern</h3>
+
+                <p>
+                    <strong>Shipsy, Bangalore</strong> |
+                    Nov 2023 – May 2024
+                </p>
+
+                <ul>
+                    <li>
+                        Developed automated test frameworks using Playwright, Cucumber, and Appium for web, API, and
+                        mobile applications.
+                    </li>
+
+                    <li>
+                        Built Jenkins CI/CD pipelines to automate testing and deployment workflows.
+                    </li>
+
+                    <li>
+                        Contributed to backend development using Django, resolving bugs and improving WMS platform
+                        stability.
+                    </li>
+
+                    <li>
+                        Worked closely with warehouse management workflows and optimization strategies.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+
+        <h2 class="section-title">Education</h2>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <h3>B.Tech in Computer Science and Engineering</h3>
+
+                <p>
+                    <strong>IIIT RGUKT RK Valley, Idupulapaya</strong>
+                    | 2020 – 2024
+                </p>
+
+                <p>CGPA: 9.0 / 10</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Pre-University Course (MPC)</h3>
+
+                <p>
+                    <strong>IIIT RGUKT RK Valley, Idupulapaya</strong>
+                    | 2018 – 2020
+                </p>
+
+                <p>CGPA: 9.32 / 10</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2 class="section-title">Contact</h2>
+
+        <div class="contact">
+            <p>Email: smalleswari759@gmail.com</p>
+            <p>Phone: +91 7013316050</p>
+
+            <br>
+
+            <button onclick="showMessage()">Hire Me</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Malleswari Segireddy | Software Engineer</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function showMessage() {
+            alert("Thank you for visiting my portfolio!");
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href'))
+                    .scrollIntoView({
+                        behavior: 'smooth'
+                    });
+            });
+        });
+    </script>
+
+    <script>
+        const slider = document.querySelector('.skills-container');
+
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+
+            e.preventDefault();
+
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+
+</body>
+
+</html>
